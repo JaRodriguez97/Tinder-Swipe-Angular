@@ -111,7 +111,7 @@ export class AppComponent implements OnInit {
       const goRight = this.pullDeltaX > 0;
 
       this.actualCard.classList.add(goRight ? 'go-right' : 'go-left');
-      this.actualCard.addEventListener('trasitionend', () =>
+      this.actualCard.addEventListener('transitionend', () =>
         this.actualCard!.remove()
       );
     } else if (this.actualCard instanceof HTMLElement) {
@@ -125,7 +125,9 @@ export class AppComponent implements OnInit {
         );
     }
 
-    this.actualCard!.addEventListener('transitionend', () => {
+    this.actualCard!.addEventListener('transitionend', (e) => {
+      if (e.propertyName !== "transform") return;
+
       if (this.actualCard instanceof HTMLElement) {
         this.actualCard.removeAttribute('style');
         this.actualCard.classList.remove('reset');
